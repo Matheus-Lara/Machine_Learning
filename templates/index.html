@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Machine Learning Web App</h1>
+    <form action="/train" method="post">
+        <label for="classifier">Classifier:</label>
+        <select name="classifier" id="classifier">
+            <option value="KNN">KNN</option>
+            <option value="MLP">MLP</option>
+            <option value="DT">Decision Tree</option>
+            <option value="RF">Random Forest</option>
+        </select><br>
+
+        <div id="param1">
+            <label for="param1" id="labelParam1">Parameter 1:</label>
+            <input type="text" name="param1" id="txtParam1" required><br>
+        </div>
+
+        <div id="param2">
+            <label for="param2" id="labelParam2">Parameter 2:</label>
+            <input type="text" name="param2" id="txtParam2"><br>
+        </div>
+
+        <div id="param3">
+            <label for="param3" id="labelParam3">Parameter 3:</label>
+            <input type="text" name="param3" id="txtParam3"><br>
+        </div>
+
+        <input type="submit" value="Train and Test">
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function handleSelectedClassifier() {
+            $('#txtParam1').val('');
+            $('#txtParam2').val('');
+            $('#txtParam3').val('');
+
+            let fieldsCallback = {
+                'KNN': () => {
+                    $('#labelParam1').html('n_neighbors');
+                    $('#labelParam2').html('leaf_size');
+                    $('#labelParam3').html('n_jobs');
+                },
+                'MLP': () => {
+                    $('#labelParam1').html('max_iter');
+                    $('#labelParam2').html('alpha');
+                    $('#labelParam3').html('max_fun');
+                },
+                'DT': () => {
+                    $('#labelParam1').html('max_depth');
+                    $('#labelParam2').html('random_state');
+                    $('#labelParam3').html('max_leaf_nodes');
+                },
+                'RF': () => {
+                    $('#labelParam1').html('n_estimators');
+                    $('#labelParam2').html('max_depth');
+                    $('#labelParam3').html('random_state');
+                }
+            }
+
+            fieldsCallback[$('#classifier').val()]();
+        }
+
+        $(function() {
+            $('#classifier').change(handleSelectedClassifier);
+            handleSelectedClassifier();
+        });
+
+    </script>
+</body>
+</html>

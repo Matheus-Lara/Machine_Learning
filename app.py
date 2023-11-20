@@ -31,14 +31,7 @@ def train():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    if classifier_name == 'KNN':
-        classifier = KNeighborsClassifier(n_neighbors=int(param1), leaf_size=int(param2), n_jobs=int(param3))
-    elif classifier_name == 'MLP':
-        classifier = MLPClassifier(max_iter=int(param1), alpha=int(param2), max_fun=int(param3))
-    elif classifier_name == 'DT':
-        classifier = DecisionTreeClassifier(max_depth=int(param1), random_state=int(param2), max_leaf_nodes=int(param3))
-    elif classifier_name == 'RF':
-        classifier = RandomForestClassifier(n_estimators=int(param1), max_depth=int(param2), random_state=int(param3))
+    classifier = get_classifier_instance(classifier_name, param1, param2, param3)
 
     classifier.fit(X_train, y_train)
 
@@ -50,7 +43,23 @@ def train():
     f1_score = metrics.f1_score(y_test, y_pred, average='macro')
 
     confusion_matrix = metrics.confusion_matrix(y_test, y_pred)
-    plt.imshow(confusion_matrix, interpolation='nearest', cmap=plt.cm.Blues)
+    img_str = get_confusion_matrix_base64_img(confusion_matrix, y)
+
+    return render_template('results.html', accuracy=accuracy, precision=precision, recall=recall, f1_score=f1_score, confusion_matrix=img_str)
+
+def get_classifier_instance(classifier_name, param1, param2, param3):
+    match classifier_name:
+        case 'KNN':
+            return KNeighborsClassifier(n_neighbors=int(param1), leaf_size=int(param2), n_jobs=int(param3))
+        case 'MLP':
+            return MLPClassifier(max_iter=int(param1), alpha=int(param2), max_fun=int(param3))
+        case 'DT':
+            return DecisionTreeClassifier(max_depth=int(param1), random_state=int(param2), max_leaf_nodes=int(param3))
+        case 'RF':
+            return RandomForestClassifier(n_estimators=int(param1), max_depth=int(param2), random_state=int(param3))
+
+def get_confusion_matrix_base64_img(confusion_matrix, y):
+    plt.imshow(confusion_matrix, interpolation='nearest', cmap=plt.cm.Reds)
     plt.title('Confusion Matrix')
     plt.colorbar()
     plt.xticks(range(len(set(y))), set(y))
@@ -61,11 +70,12 @@ def train():
     img_buffer = BytesIO()
     plt.savefig(img_buffer, format='png')
     img_buffer.seek(0)
-    img_str = base64.b64encode(img_buffer.read()).decode('utf-8')
+    img_b64_str = base64.b64encode(img_buffer.read()).decode('utf-8')
 
     plt.close()
 
-    return render_template('results.html', accuracy=accuracy, precision=precision, recall=recall, f1_score=f1_score, confusion_matrix=img_str)
+    return img_b64_str
+
 
 def load_data():
     iris = load_iris()

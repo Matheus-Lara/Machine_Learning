@@ -3,8 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning Web App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Treinamento de Machine Learning</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            margin: 20px auto;
+            width: 50%;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
     <h1>Machine Learning Web App</h1>
@@ -35,43 +74,47 @@
         <input type="submit" value="Train and Test">
     </form>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
         function handleSelectedClassifier() {
-            $('#txtParam1').val('');
-            $('#txtParam2').val('');
-            $('#txtParam3').val('');
+            const txtParam1 = document.getElementById('txtParam1');
+            const txtParam2 = document.getElementById('txtParam2');
+            const txtParam3 = document.getElementById('txtParam3');
 
-            let fieldsCallback = {
+            txtParam1.value = '';
+            txtParam2.value = '';
+            txtParam3.value = '';
+
+            const fieldsCallback = {
                 'KNN': () => {
-                    $('#labelParam1').html('n_neighbors');
-                    $('#labelParam2').html('leaf_size');
-                    $('#labelParam3').html('n_jobs');
+                    document.getElementById('labelParam1').textContent = 'n_neighbors';
+                    document.getElementById('labelParam2').textContent = 'leaf_size';
+                    document.getElementById('labelParam3').textContent = 'n_jobs';
                 },
                 'MLP': () => {
-                    $('#labelParam1').html('max_iter');
-                    $('#labelParam2').html('alpha');
-                    $('#labelParam3').html('max_fun');
+                    document.getElementById('labelParam1').textContent = 'max_iter';
+                    document.getElementById('labelParam2').textContent = 'alpha';
+                    document.getElementById('labelParam3').textContent = 'max_fun';
                 },
                 'DT': () => {
-                    $('#labelParam1').html('max_depth');
-                    $('#labelParam2').html('random_state');
-                    $('#labelParam3').html('max_leaf_nodes');
+                    document.getElementById('labelParam1').textContent = 'max_depth';
+                    document.getElementById('labelParam2').textContent = 'random_state';
+                    document.getElementById('labelParam3').textContent = 'max_leaf_nodes';
                 },
                 'RF': () => {
-                    $('#labelParam1').html('n_estimators');
-                    $('#labelParam2').html('max_depth');
-                    $('#labelParam3').html('random_state');
+                    document.getElementById('labelParam1').textContent = 'n_estimators';
+                    document.getElementById('labelParam2').textContent = 'max_depth';
+                    document.getElementById('labelParam3').textContent = 'random_state';
                 }
-            }
+            };
 
-            fieldsCallback[$('#classifier').val()]();
+            fieldsCallback[document.getElementById('classifier').value]();
         }
 
-        $(function() {
-            $('#classifier').change(handleSelectedClassifier);
+        window.onload = () => {
+            const classifier = document.getElementById('classifier');
+            classifier.addEventListener('change', handleSelectedClassifier);
             handleSelectedClassifier();
-        });
+        };
 
     </script>
 </body>

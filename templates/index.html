@@ -8,10 +8,12 @@
         body {
             font-family: Arial, sans-serif;
             text-align: center;
+            justify-content: left;
         }
 
-        h1 {
-            color: #333;
+        h2 {
+            color: #1e32b6;
+            text-align: left;
         }
 
         form {
@@ -32,7 +34,7 @@
         }
 
         input[type="submit"] {
-            background-color: #4CAF50;
+            background-color: #4586a0;
             color: white;
             padding: 10px 15px;
             border: none;
@@ -41,14 +43,14 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #45a049;
+            background-color: #4c93af;
         }
     </style>
 </head>
 <body>
-    <h1>Machine Learning Web App</h1>
-    <form action="/train" method="post">
-        <label for="classifier">Classifier:</label>
+    <h1>Aplicativo Flask Machine learning</h1>
+    <form action="/train" method="post" style="margin: 0;">
+        <label for="classifier">Classificador:</label>
         <select name="classifier" id="classifier">
             <option value="KNN">KNN</option>
             <option value="MLP">MLP</option>

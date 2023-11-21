@@ -14,11 +14,17 @@ from io import BytesIO
 import base64
 import numpy as np
 
+
+
 app = Flask(__name__)
+
+
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
 
 @app.route('/train', methods=['POST'])
 def train():
@@ -47,6 +53,8 @@ def train():
 
     return render_template('resultado.html', accuracy=accuracy, precision=precision, recall=recall, f1_score=f1_score, confusion_matrix=img_str)
 
+
+
 def get_classifier_instance(classifier_name, param1, param2, param3):
     match classifier_name:
         case 'KNN':
@@ -57,6 +65,8 @@ def get_classifier_instance(classifier_name, param1, param2, param3):
             return DecisionTreeClassifier(max_depth=int(param1), random_state=int(param2), max_leaf_nodes=int(param3))
         case 'RF':
             return RandomForestClassifier(n_estimators=int(param1), max_depth=int(param2), random_state=int(param3))
+
+
 
 def get_confusion_matrix_base64_img(confusion_matrix, y):
     plt.imshow(confusion_matrix, interpolation='nearest', cmap=plt.cm.Reds)
@@ -77,11 +87,15 @@ def get_confusion_matrix_base64_img(confusion_matrix, y):
     return img_b64_str
 
 
+
+
 def load_data():
     iris = load_iris()
     X = iris.data
     y = iris.target
     return X, y
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -45,7 +45,7 @@ def train():
     confusion_matrix = metrics.confusion_matrix(y_test, y_pred)
     img_str = get_confusion_matrix_base64_img(confusion_matrix, y)
 
-    return render_template('results.html', accuracy=accuracy, precision=precision, recall=recall, f1_score=f1_score, confusion_matrix=img_str)
+    return render_template('resultado.html', accuracy=accuracy, precision=precision, recall=recall, f1_score=f1_score, confusion_matrix=img_str)
 
 def get_classifier_instance(classifier_name, param1, param2, param3):
     match classifier_name:

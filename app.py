@@ -86,9 +86,6 @@ def get_confusion_matrix_base64_img(confusion_matrix, y):
 
     return img_b64_str
 
-
-
-
 def load_data():
     iris = load_iris()
     X = iris.data

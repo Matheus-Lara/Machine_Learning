@@ -29,7 +29,7 @@ def index():
 @app.route('/train', methods=['POST'])
 def train():
     classifier_name = request.form['classifier']
-    param1 = request.form['param1']
+    parametro1 = request.form['parametro1']
     param2 = request.form['param2']
     param3 = request.form['param3']
 
@@ -37,7 +37,7 @@ def train():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    classifier = get_classifier_instance(classifier_name, param1, param2, param3)
+    classifier = get_classifier_instance(classifier_name, parametro1, param2, param3)
 
     classifier.fit(X_train, y_train)
 
@@ -55,16 +55,16 @@ def train():
 
 
 
-def get_classifier_instance(classifier_name, param1, param2, param3):
+def get_classifier_instance(classifier_name, parametro1, param2, param3):
     match classifier_name:
         case 'KNN':
-            return KNeighborsClassifier(n_neighbors=int(param1), leaf_size=int(param2), n_jobs=int(param3))
+            return KNeighborsClassifier(n_neighbors=int(parametro1), leaf_size=int(param2), n_jobs=int(param3))
         case 'MLP':
-            return MLPClassifier(max_iter=int(param1), alpha=int(param2), max_fun=int(param3))
+            return MLPClassifier(max_iter=int(parametro1), alpha=int(param2), max_fun=int(param3))
         case 'DT':
-            return DecisionTreeClassifier(max_depth=int(param1), random_state=int(param2), max_leaf_nodes=int(param3))
+            return DecisionTreeClassifier(max_depth=int(parametro1), random_state=int(param2), max_leaf_nodes=int(param3))
         case 'RF':
-            return RandomForestClassifier(n_estimators=int(param1), max_depth=int(param2), random_state=int(param3))
+            return RandomForestClassifier(n_estimators=int(parametro1), max_depth=int(param2), random_state=int(param3))
 
 
 

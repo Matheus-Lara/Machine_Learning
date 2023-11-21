@@ -88,24 +88,24 @@
 
             const fieldsCallback = {
                 'KNN': () => {
-                    document.getElementById('labelParam1').textContent = 'n_neighbors';
-                    document.getElementById('labelParam2').textContent = 'leaf_size';
-                    document.getElementById('labelParam3').textContent = 'n_jobs';
+                    document.getElementById('labelParam1').textContent = 'n_neighbors:';
+                    document.getElementById('labelParam2').textContent = 'leaf_size:';
+                    document.getElementById('labelParam3').textContent = 'n_jobs:';
                 },
                 'MLP': () => {
-                    document.getElementById('labelParam1').textContent = 'max_iter';
-                    document.getElementById('labelParam2').textContent = 'alpha';
-                    document.getElementById('labelParam3').textContent = 'max_fun';
+                    document.getElementById('labelParam1').textContent = 'max_iter:';
+                    document.getElementById('labelParam2').textContent = 'alpha:';
+                    document.getElementById('labelParam3').textContent = 'max_fun:';
                 },
                 'DT': () => {
-                    document.getElementById('labelParam1').textContent = 'max_depth';
-                    document.getElementById('labelParam2').textContent = 'random_state';
-                    document.getElementById('labelParam3').textContent = 'max_leaf_nodes';
+                    document.getElementById('labelParam1').textContent = 'max_depth:';
+                    document.getElementById('labelParam2').textContent = 'random_state:';
+                    document.getElementById('labelParam3').textContent = 'max_leaf_nodes:';
                 },
                 'RF': () => {
-                    document.getElementById('labelParam1').textContent = 'n_estimators';
-                    document.getElementById('labelParam2').textContent = 'max_depth';
-                    document.getElementById('labelParam3').textContent = 'random_state';
+                    document.getElementById('labelParam1').textContent = 'n_estimators:';
+                    document.getElementById('labelParam2').textContent = 'max_depth:';
+                    document.getElementById('labelParam3').textContent = 'random_state:';
                 }
             };
 
